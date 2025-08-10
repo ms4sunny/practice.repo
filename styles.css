@@ -1,0 +1,8 @@
+.about-heading {
+    text-align: center;
+    font-size: 36px;        /* Bigger size */
+    color: #2e86de;         /* Nice blue shade (you can change it) */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}

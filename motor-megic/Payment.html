@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment - Motor Magic</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: rgb(166, 130, 10);
+    }
+    img {
+      width: 250px;
+      height: auto;
+      margin: 10px;
+    }
+    .glow {
+      color: white;
+      font-size: 36px;
+      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 15px #00f, 0 0 20px #00f;
+    }
+    h1 {
+      color: rgb(71, 128, 220);
+    }
+    .category {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+<nav style="background-color: #333; padding: 10px;">
+  <a href="index.html" style="color: white; margin-right: 20px; text-decoration: none;">Home</a>
+  <a href="shop.html" style="color: white; margin-right: 20px; text-decoration: none;">Shop</a>
+  <a href="contact.html" style="color: white; text-decoration: none;">Contact Us</a>
+</nav>
+    <h1 class="glow">Payment Page</h1>
+    
+    <!-- Extract product details from the URL -->
+<script>
+  // Function to get URL parameters
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // Display the product and price
+  window.onload = function () {
+    const product = getQueryParam("product");
+    const price = getQueryParam("price");
+
+    // Update the page with product and price
+    if (product && price) {
+      document.getElementById("product-name").textContent = product;
+      document.getElementById("product-price").textContent = "PKR " + price;
+    }
+  };
+</script>
+    
+    <p>You are about to purchase <strong><span id="productName"></span></strong></p>
+    <p>Price: <strong><span id="productPrice"></span></strong></p>
+    <p><strong>Product:</strong> <span id="product-name"></span></p>
+    <p><strong>Price:</strong> <span id="product-price"></span></p>
+    <img id="product-image" src="" alt="Product Image" width="250">
+    <script>
+  // Function to get URL parameters
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  const productName = getQueryParam("product");
+  const productImage = document.getElementById("product-image");
+
+  if (productName) {
+    const imageBase = productName.toLowerCase().replace(/ /g, "");
+    const jpgPath = imageBase + ".jpg";
+    const jpegPath = imageBase + ".jpeg";
+
+    // Try loading .jpg first
+    const testImage = new Image();
+    testImage.onload = function () {
+      productImage.src = jpgPath;
+      productImage.alt = productName;
+    };
+    testImage.onerror = function () {
+      // If .jpg fails, try .jpeg
+      productImage.src = jpegPath;
+      productImage.alt = productName;
+    };
+    testImage.src = jpgPath;
+  }
+</script>
+
+    </script>
+    <p>Please fill in your payment details below:</p>
+
+    <form action="#" method="post">
+        <label for="fullname">Full Name:</label><br>
+        <input type="text" id="fullname" name="fullname"><br><br>
+
+        <label for="card">Card Number:</label><br>
+        <input type="text" id="card" name="card"><br><br>
+
+        <label for="expiry">Expiry Date:</label><br>
+        <input type="text" id="expiry" name="expiry" placeholder="MM/YY"><br><br>
+
+        <label for="cvv">CVV:</label><br>
+        <input type="text" id="cvv" name="cvv"><br><br>
+
+        <input type="submit" value="Make Payment">
+    </form>
+
+    <br>
+    <a href="shop.html">← Back to Shop</a>
+</body>
+<footer style="background-color: #f1f1f1; padding: 20px; text-align: center; margin-top: 40px;">
+  <a href="index.html" style="margin: 10px;">Home</a>
+  <a href="bikes.html" style="margin: 10px;">Bikes</a>
+  <a href="cars.html" style="margin: 10px;">Cars</a>
+  <a href="trucks.html" style="margin: 10px;">Trucks</a>
+  <a href="contact.html" style="margin: 10px;">Contact Us</a>
+  <p style="margin-top: 15px;">&copy; 2025 Motor Magic. All rights reserved.</p>
+</footer>
+</html>

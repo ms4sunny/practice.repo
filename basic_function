@@ -1,0 +1,46 @@
+temperature = input("Enter the temperature: ")
+temperature = int(temperature) # converting string to integer
+if temperature > 30: # using if statement
+    print("It's a hot day")
+elif temperature > 20:
+    print("It's a nice day")
+else:
+    print("It's a cold day")
+# Ask user for inputs
+age = int(input("Enter student's age: "))
+marks = float(input("Enter high school marks (percentage): "))
+fee_paid = input("Has the student paid the fee? (yes/no): ").lower()
+on_scholarship = input("Is the student on scholarship? (yes/no): ").lower()
+
+# Convert 'yes'/'no' answers into boolean values
+fee_status = (fee_paid == "yes")
+scholarship_status = (on_scholarship == "yes")
+
+# Main eligibility condition
+if 18 <= age < 25 and marks >= 60 and (fee_status or scholarship_status):
+    print("✅ Student is eligible for college admission.")
+
+# Optional eligibility using 'or'
+elif marks >= 90 and (fee_status or scholarship_status):
+    print("✅ Student is eligible due to exceptional marks.")
+
+# Not eligible
+else:
+    print("❌ Student is not eligible for college admission.")
+print("This is a test")
+# Correct answer
+correct_answer = 30
+
+# Ask the question up to 3 times
+for attempt in range(3):
+    answer = int(input("How many days are in June? "))
+    
+    if answer == correct_answer:
+        print("✅ Correct! Well done.")
+        break  # Exit loop if correct
+    else:
+        print("❌ Wrong answer. Try again.")
+
+# This else runs only if loop finishes without break
+else:
+    print("❌ You have failed all 3 attempts.")

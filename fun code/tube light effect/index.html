@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhammad Sajid - Profile</title>
+  <style>
+    /* Base Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000; /* Dark Room */
+      font-family: sans-serif;
+      overflow: hidden;
+      transition: background-color 1s ease;
+    }
+
+    /* Switch Button (The Martian Style) */
+    #theme-switch-button {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      background-color: red;
+      box-shadow: 0 0 15px red;
+      cursor: pointer;
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      z-index: 10;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    #theme-switch-button.on {
+      background-color: #00ff00;
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    .glow-text {
+      color: #aaa;
+      font-size: 1rem;
+      position: absolute;
+      top: 35px;
+      left: 70px;
+    }
+
+    /* The "Wall" Background */
+    .wall {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #ffffff;
+      opacity: 0;
+      transition: opacity 3s ease-in-out;
+      z-index: 1;
+    }
+
+    .wall.glow {
+      opacity: 0.40; /* Not fully bright, just enough to read text */
+      box-shadow: inset 0 0 150px #f5f4f4;
+    }
+
+    /* Main Content on Wall */
+    .main-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 120px auto;
+      padding: 30px;
+      color: #000;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .main-content.visible {
+      opacity: 1;
+    }
+
+    .main-content h1,
+    .main-content h2,
+    .main-content p,
+    .main-content li,
+    .main-content a {
+      color: #111;
+    }
+
+    .main-content img.profile-pic {
+      width: 150px;
+      border-radius: 5px;
+      border: 3px solid #444;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    /* Flicker effect on wall */
+    @keyframes flicker {
+      0%, 3%, 5%, 9%, 11%, 15%, 20% { opacity: 0; }
+      4%, 6%, 10%, 12%, 16%, 21% { opacity: 0.45; }
+      25%, 100% { opacity: 0.35; }
+    }
+
+    .wall.flicker-effect {
+      animation: flicker 2s linear forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Red Switch Button -->
+  <button id="theme-switch-button"></button>
+  <span class="glow-text">Switch Light</span>
+
+  <!-- Wall Background -->
+  <div id="wall" class="wall"></div>
+
+  <!-- Content on the Wall -->
+  <div id="mainContent" class="main-content">
+    <h1>Muhammad Sajid</h1><br>
+    <h2>Driven by passion, powered by purpose.</h2><br>
+    <p>
+      Hello! I am a passionate learner who loves creating web pages and exploring new technologies.
+    </p><br>
+    <h3>My Hobbies</h3>
+    <ul>
+      <li>Coding</li>
+      <li>Fun with AI</li>
+      <li>Watching Movies</li>
+    </ul><br><br>
+    <h3>OK That's me</h3>
+    <img src="profile-picture.jpg" alt="Profile picture" class="profile-pic" /><br><br>
+    <p>Visit my favorite website: <a href="https://www.youtube.com" target="_blank">YouTube</a></p>
+  </div>
+
+  <script>
+    const button = document.getElementById('theme-switch-button');
+    const wall = document.getElementById('wall');
+    const content = document.getElementById('mainContent');
+
+    button.addEventListener('click', () => {
+      // Turn on the button
+      button.classList.add('on');
+
+      // Flicker the wall
+      wall.classList.add('flicker-effect');
+
+      // After flicker, apply glowing wall
+      setTimeout(() => {
+        wall.classList.remove('flicker-effect');
+        wall.classList.add('glow');
+        content.classList.add('visible');
+      }, 2200); // Match flicker duration
+    });
+  </script>
+</body>
+</html>
