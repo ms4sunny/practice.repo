@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <title>EventEase - Events</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <div class="brand">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="EventEase Logo" class="logo">
+        </a>
+        <h1>EventEase</h1>
+      </div>
+      <ul>
+        <li><a href="index.html" class="nav-btn">Home</a></li>
+        <li><a href="events.html" class="nav-btn active">Events</a></li>
+        <li><a href="favorites.html" class="nav-btn">Favorites</a></li>
+        <li id="dashboardNav" class="hidden"><a href="dashboard.html" class="nav-btn">Dashboard</a></li>
+        <li id="loginNav"><a href="#" class="nav-btn" onclick="openLogin(); return false;">Login</a></li>
+        <li id="signupNav"><a href="#" class="nav-btn" onclick="openSignup(); return false;">Sign Up</a></li>
+        <li id="userMenu" class="hidden">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+               class="user-icon" alt="User icon"
+               onclick="toggleUserMenu()">
+          <div id="userDropdown" class="dropdown hidden"></div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Filter/Search Section -->
+  <section class="filters">
+    <h2>Find Your Perfect Event 🎯</h2>
+    <div class="filter-controls">
+      <input type="text" id="search" placeholder="🔍 Search events..." onkeyup="filterEvents()">
+      <label for="category" class="visually-hidden">Filter by Category</label>
+      <select id="category" onchange="filterEvents()" aria-label="Filter by Category">
+        <option value="all">All Categories</option>
+        <option value="music">🎵 Music</option>
+        <option value="tech">💻 Tech</option>
+        <option value="art">🎨 Art</option>
+        <option value="sports">⚽ Sports</option>
+        <option value="political">🗳️ Political</option>
+        <option value="social">🤝 Social</option>
+        <option value="educational">📚 Educational</option>
+        <option value="medical">🏥 Medical</option>
+        <option value="expo">🏢 Expos</option>
+        <option value="promotion">💡 Promotions</option>
+      </select>
+    </div>
+    <div id="filterResults" class="filter-results"></div>
+  </section>
+
+  <!-- Event Listings -->
+  <section class="event-listings">
+    <div class="event-grid" id="eventContainer">
+      <!-- Events will be injected by JS -->
+    </div>
+  </section>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
+      <h2>Login</h2>
+      <input type="text" id="loginUsername" placeholder="Email or Username" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <button onclick="memberLogin()">Login</button>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeSignup()">&times;</span>
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Full Name" />
+      <input type="email" id="signupEmail" placeholder="Email" />
+      <input type="password" id="signupPassword" placeholder="Password" />
+
+      <label><input type="radio" name="role" value="subscriber" onclick="showExtraFields(false)" /> Subscriber</label>
+      <div id="subscriberExtra" class="hidden">
+        <label>
+          <input type="checkbox" id="subscriberFilterToggle" /> Show only my categories
+        </label>
+      </div>
+      <label><input type="radio" name="role" value="member" onclick="showExtraFields(true)" /> Member</label>
+
+      <div id="memberExtra">
+        <h3>Member Verification</h3>
+        <p>Select your topics of interest:</p>
+        <div class="categories-grid" id="signupCategories">
+          <label class="cat"><input type="checkbox" value="music"><span>Music</span></label>
+          <label class="cat"><input type="checkbox" value="tech"><span>Tech</span></label>
+          <label class="cat"><input type="checkbox" value="art"><span>Art</span></label>
+          <label class="cat"><input type="checkbox" value="sports"><span>Sports</span></label>
+          <label class="cat"><input type="checkbox" value="political"><span>Political</span></label>
+          <label class="cat"><input type="checkbox" value="social"><span>Social</span></label>
+          <label class="cat"><input type="checkbox" value="educational"><span>Educational</span></label>
+          <label class="cat"><input type="checkbox" value="medical"><span>Medical</span></label>
+          <label class="cat"><input type="checkbox" value="expo"><span>Expos</span></label>
+          <label class="cat"><input type="checkbox" value="promotion"><span>Promotions</span></label>
+        </div>
+        <input type="text" placeholder="Verification Code (demo)" />
+      </div>
+      <button onclick="signup()">Sign Up</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      filterEvents();
+      renderAuthUI && renderAuthUI();
+    });
+  </script>
+</body>
+</html>

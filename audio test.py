@@ -3,26 +3,16 @@ import pyttsx3
 from datetime import datetime
 import time
 
-# Initialize engine once at program start (don't recreate it each time)
-engine = None
-try:
+def speak(text):
+    print(f"Robot: {text}")
     engine = pyttsx3.init()
     engine.setProperty('rate', 150)
     engine.setProperty('volume', 1)
-except Exception as e:
-    print(f"Failed to initialize speech engine: {e}")
-    exit()
-
-def speak(text):
-    print(f"Robot: {text}")
-    if engine:
-        try:
-            engine.say(text)
-            engine.runAndWait()
-            # Don't stop or delete the engine - keep it alive
-            time.sleep(0.3)  # Brief pause for stability
-        except Exception as e:
-            print(f"Speech error: {e}")
+    engine.say(text)
+    engine.runAndWait()
+    engine.stop()  # Explicitly stop the engine
+    del engine  # Clean up the engine instance
+    time.sleep(0.3)  # Brief pause for stability
 
 # Initial greeting
 speak("Hello, I am your offline talking robot. Ready to help you!")
@@ -30,12 +20,11 @@ speak("Hello, I am your offline talking robot. Ready to help you!")
 listener = sr.Recognizer()
 listener.pause_threshold = 1.5
 listener.energy_threshold = 4000  # Adjust based on your microphone
-listener.dynamic_energy_threshold = False  # More stable for continuous listening
 
 while True:
     try:
         with sr.Microphone() as source:
-            print("\nListening... (Say 'stop' to exit)")
+            print("\nListening...")
             listener.adjust_for_ambient_noise(source, duration=1)
             audio = listener.listen(source, timeout=5, phrase_time_limit=5)
 
@@ -62,14 +51,6 @@ while True:
         speak("Sorry, I didn't catch that.")
     except sr.RequestError:
         speak("Could not connect to the speech service.")
-    except KeyboardInterrupt:
-        speak("Goodbye!")
-        break
     except Exception as e:
         print(f"Error: {e}")
         speak("Sorry, something went wrong. Let's try again.")
-
-# Clean up when done
-if engine:
-    engine.stop()
-    del engine

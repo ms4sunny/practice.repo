@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventEase - Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+ <nav class="navbar">
+        <div class="nav-brand">
+            <img src="logo.png" alt="EventEase" class="logo">
+            <span class="brand-name">EventEase</span>
+        </div>
+        
+        <!-- Global Search Bar -->
+        <div class="nav-search">
+            <input type="text" placeholder="🔍 Search events..." id="globalSearch">
+            <button onclick="quickSearch()" class="search-btn">Search</button>
+        </div>
+        
+        <!-- User Menu & Sidebar Toggle -->
+        <div class="nav-user">
+            <!-- Sidebar Toggle Button -->
+            <button id="mainSidebarToggle" class="sidebar-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <!-- User Avatar (Visible when logged in) -->
+            <div id="userAvatar" class="user-avatar hidden" onclick="toggleUserDropdown()">
+                👤
+            </div>
+            
+            <!-- Auth Buttons (Visible when logged out) -->
+            <div id="authButtons" class="auth-buttons">
+                <button onclick="openLogin()" class="btn-login">Login</button>
+                <button onclick="openSignup()" class="btn-signup">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Universal Sidebar -->
+    <aside class="sidebar" id="mainSidebar">
+        <div class="sidebar-header">
+            <h3 id="sidebarTitle">Navigation</h3>
+            <button class="sidebar-close" onclick="closeSidebar()">×</button>
+        </div>
+        
+        <!-- Dynamic Sidebar Content -->
+        <div class="sidebar-content" id="sidebarContent">
+            <!-- Content will be populated by JavaScript based on auth state -->
+            <!-- Default content for logged out users -->
+            <div id="sidebarGuest">
+                <a href="index.html" class="sidebar-link">🏠 Home</a>
+                <a href="events.html" class="sidebar-link">📅 All Events</a>
+                <a href="favorites.html" class="sidebar-link">⭐ Favorites</a>
+                <hr class="sidebar-divider">
+                <a href="#" onclick="openLogin()" class="sidebar-link">🔐 Login</a>
+                <a href="#" onclick="openSignup()" class="sidebar-link">📝 Sign Up</a>
+            </div>
+            
+            <!-- Content for logged in users (hidden by default) -->
+            <div id="sidebarUser" class="hidden">
+                <div class="user-welcome">
+                    <strong id="sidebarUserName">Welcome!</strong>
+                    <span id="sidebarUserRole" class="user-role">Subscriber</span>
+                </div>
+                <hr class="sidebar-divider">
+                <a href="dashboard.html" class="sidebar-link">📊 Dashboard</a>
+                <a href="events.html" class="sidebar-link">📅 Browse Events</a>
+                <a href="favorites.html" class="sidebar-link">⭐ My Favorites</a>
+                <div id="sidebarMember" class="hidden">
+                    <a href="create-event.html" class="sidebar-link">➕ Create Event</a>
+                    <a href="my-events.html" class="sidebar-link">📋 My Events</a>
+                </div>
+                <a href="profile.html" class="sidebar-link">👤 Profile</a>
+                <a href="#" onclick="logout()" class="sidebar-link logout">🚪 Logout</a>
+            </div>
+        </div>
+        
+        <!-- Advanced Filters Section -->
+        <div class="sidebar-filters">
+            <h4>🔍 Filter Events</h4>
+            
+            <div class="filter-group">
+                <label for="categoryFilter">Category:</label>
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="music">🎵 Music</option>
+                    <option value="tech">💻 Tech</option>
+                    <option value="art">🎨 Art</option>
+                    <option value="sports">⚽ Sports</option>
+                    <option value="political">🗳️ Political</option>
+                    <option value="social">🤝 Social</option>
+                    <option value="educational">📚 Educational</option>
+                    <option value="medical">🏥 Medical</option>
+                    <option value="expo">🏢 Expo</option>
+                    <option value="promotion">💡 Promotion</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Date:</label>
+                <input type="date" id="dateFilter" title="Select event date" placeholder="Select date">
+            </div>
+            
+            <div class="filter-group">
+                <label>Price:</label>
+                <select id="priceFilter" title="Filter by price">
+                    <option value="all">Any Price</option>
+                    <option value="free">Free Only</option>
+                    <option value="paid">Paid Events</option>
+                </select>
+            </div>
+            
+            <div class="filter-actions">
+                <button onclick="applyAdvancedFilters()" class="btn-filter">Apply Filters</button>
+                <button onclick="resetFilters()" class="btn-secondary">Reset</button>
+            </div>
+        </div>
+    </aside>
+     <!-- Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+</header>
+
+
+  <section class="login-box">
+    <h2>Subscriber Login</h2>
+    <input type="email" id="subscriberEmail" placeholder="Enter your email"><br>
+    <label>Select Your Interests:</label><br>
+    <select id="subscriberCategories" multiple title="Select Your Interests">
+      <option value="music">Music</option>
+      <option value="tech">Tech</option>
+      <option value="art">Art</option>
+      <option value="sports">Sports</option>
+      <option value="political">Political</option>
+      <option value="social">Social</option>
+      <option value="educational">Educational</option>
+      <option value="medical">Medical</option>
+      <option value="expo">Expos</option>
+      <option value="promotion">Promotions</option>
+    </select><br>
+    <button onclick="subscriberLogin()">Continue as Subscriber</button>
+  </section>
+
+  <section class="login-box">
+    <h2>Member Login</h2>
+    <input type="text" id="memberUsername" placeholder="Username"><br>
+    <input type="password" id="memberPassword" placeholder="Password"><br>
+    <button onclick="memberLogin()">Login as Member</button>
+    <p>Don’t have an account? <a href="signup.html">Sign up here</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 EventEase. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

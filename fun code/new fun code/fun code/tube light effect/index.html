@@ -15,19 +15,7 @@
       transition: background-color 1s ease;
     }
 
-    /* Visually hidden utility for accessibility */
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-    }
-
-    /* Switch Button (The Martian Style) */
+    /* Switch Button */
     #theme-switch-button {
       width: 30px;
       height: 30px;
@@ -56,7 +44,7 @@
       left: 70px;
     }
 
-    /* The "Wall" Background */
+    /* Wall Background */
     .wall {
       position: absolute;
       top: 0;
@@ -70,11 +58,11 @@
     }
 
     .wall.glow {
-      opacity: 0.40; /* Not fully bright, just enough to read text */
+      opacity: 0.40;
       box-shadow: inset 0 0 150px #f5f4f4;
     }
 
-    /* Main Content on Wall */
+    /* Main Content */
     .main-content {
       position: relative;
       z-index: 2;
@@ -105,23 +93,32 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
-  /* Flicker effect on wall */
-  @keyframes flicker {
-    0%, 3%, 5%, 9%, 11%, 15%, 20% { opacity: 0; }
-    25%, 100% { opacity: 0.35; }
-  }
+    /* Improved Flicker Effect */
+    @keyframes flicker {
+      0%   { opacity: 0; }
+      3%   { opacity: 0.4; }
+      6%   { opacity: 0; }
+      8%   { opacity: 0.5; }
+      10%  { opacity: 0; }
+      13%  { opacity: 0.35; }
+      16%  { opacity: 0.1; }
+      18%  { opacity: 0.45; }
+      21%  { opacity: 0.2; }
+      24%  { opacity: 0.5; }
+      27%  { opacity: 0.15; }
+      30%  { opacity: 0.4; }
+      100% { opacity: 0.4; }
+    }
 
     .wall.flicker-effect {
-      animation: flicker 2s linear forwards;
+      animation: flicker 2.5s ease-in-out forwards;
     }
   </style>
 </head>
 <body>
 
   <!-- Red Switch Button -->
-  <button id="theme-switch-button" title="Switch Light">
-    <span class="visually-hidden">Switch Light</span>
-  </button>
+  <button id="theme-switch-button">Theme</button>
   <span class="glow-text">Switch Light</span>
 
   <!-- Wall Background -->
@@ -142,7 +139,7 @@
     </ul><br><br>
     <h3>OK That's me</h3>
     <img src="profile-picture.jpg" alt="Profile picture" class="profile-pic" /><br><br>
-    <p>Visit my favorite website: <a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a></p>
+    <p>Visit my favorite website:</p> 
   </div>
 
   <script>
@@ -151,18 +148,18 @@
     const content = document.getElementById('mainContent');
 
     button.addEventListener('click', () => {
-      // Turn on the button
+      // Turn on button
       button.classList.add('on');
 
-      // Flicker the wall
+      // Start flicker
       wall.classList.add('flicker-effect');
 
-      // After flicker, apply glowing wall
+      // After flicker, show glow
       setTimeout(() => {
         wall.classList.remove('flicker-effect');
         wall.classList.add('glow');
         content.classList.add('visible');
-      }, 2200); // Match flicker duration
+      }, 2600); // matches flicker duration
     });
   </script>
 </body>

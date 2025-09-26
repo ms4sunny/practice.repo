@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - EventEase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="EventEase Logo" class="logo">
+        </a>
+        <h1>EventEase Admin</h1>
+      </div>
+      <ul>
+        <li><a href="index.html" class="nav-btn">Home</a></li>
+        <li><a href="admin-dashboard.html" class="nav-btn active">Admin Dashboard</a></li>
+        <li><a href="events.html" class="nav-btn">All Events</a></li>
+        <li><a href="#" onclick="logout()" class="nav-btn">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="admin-container">
+    <div class="admin-header">
+      <h1>🛡️ Admin Dashboard</h1>
+      <p>Manage event approvals and platform content</p>
+    </div>
+
+    <!-- Statistics -->
+    <div class="admin-stats">
+      <div class="stat-card">
+        <div class="stat-number" id="pendingCount">0</div>
+        <div class="stat-label">Pending Events</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="approvedCount">0</div>
+        <div class="stat-label">Approved Events</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="totalEventsCount">0</div>
+        <div class="stat-label">Total Events</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="totalUsers">0</div>
+        <div class="stat-label">Total Users</div>
+      </div>
+    </div>
+
+    <!-- Pending Events Section -->
+    <section class="admin-section">
+      <h2>⏳ Pending Approval</h2>
+      <div id="pendingEvents" class="events-grid">
+        <!-- Pending events will be loaded here -->
+      </div>
+      <div id="noPendingEvents" class="empty-state">
+        <p>No events pending approval! 🎉</p>
+      </div>
+    </section>
+
+    <!-- Recently Approved Events -->
+    <section class="admin-section">
+      <h2>✅ Recently Approved</h2>
+      <div id="approvedEvents" class="events-grid">
+        <!-- Approved events will be loaded here -->
+      </div>
+    </section>
+
+    <!-- User Management -->
+    <section class="admin-section">
+      <h2>👥 User Management</h2>
+      <div class="user-list" id="userList">
+        <!-- Users will be listed here -->
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (!isAdmin()) {
+        alert("Admin access required");
+        window.location.href = "index.html";
+        return;
+      }
+      loadAdminDashboard();
+    });
+  </script>
+</body>
+</html>

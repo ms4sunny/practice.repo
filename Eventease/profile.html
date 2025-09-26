@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - EventEase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ✅ USE THE SAME NAVBAR AS YOUR OTHER PAGES -->
+  <header>
+    <nav>
+      <div class="brand">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="EventEase Logo" class="logo">
+        </a>
+        <h1>EventEase</h1>
+      </div>
+      <ul>
+        <li><a href="index.html" class="nav-btn">Home</a></li>
+        <li><a href="events.html" class="nav-btn">Events</a></li>
+        <li><a href="favorites.html" class="nav-btn">Favorites</a></li>
+        <li id="dashboardNav" class="hidden"><a href="dashboard.html" class="nav-btn">Dashboard</a></li>
+        <li id="loginNav"><a href="#" class="nav-btn" onclick="openLogin(); return false;">Login</a></li>
+        <li id="signupNav"><a href="#" class="nav-btn" onclick="openSignup(); return false;">Sign Up</a></li>
+        <li id="userMenu" class="hidden">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+               class="user-icon" alt="User icon"
+               onclick="toggleUserMenu()">
+          <div id="userDropdown" class="dropdown hidden">
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="profile.html">👤 Profile</a>
+            <a href="favorites.html">⭐ Favorites</a>
+            <a href="#" onclick="logout()">🚪 Logout</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="profile-container">
+    <div class="profile-header">
+      <h2>My Profile</h2>
+      <div class="user-info">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
+             alt="Profile" class="profile-pic">
+        <div class="user-details">
+          <h3 id="profileUsername"></h3>
+          <p id="profileRole"></p>
+          <p id="profileEmail"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <div class="profile-section">
+        <h3>Account Settings</h3>
+        <div class="settings-form">
+          <label>Username:</label>
+          <input type="text" id="profileName" placeholder="Your username">
+          
+          <label>Email:</label>
+          <input type="email" id="profileEmailInput" placeholder="Your email">
+          
+          <label>Change Password:</label>
+          <input type="password" id="newPassword" placeholder="New password">
+          <input type="password" id="confirmPassword" placeholder="Confirm new password">
+          
+          <button onclick="updateProfile()" class="btn">Update Profile</button>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h3>My Interests</h3>
+        <div class="categories-grid" id="profileCategories">
+          <!-- Categories will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h3>Account Statistics</h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number" id="eventsCreated">0</span>
+            <span class="stat-label">Events Created</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="favoritesCount">0</span>
+            <span class="stat-label">Favorites</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="memberSince">2025</span>
+            <span class="stat-label">Member Since</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modals -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
+      <h2>Login</h2>
+      <input type="text" id="loginUsername" placeholder="Email or Username" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <button onclick="memberLogin()">Login</button>
+    </div>
+  </div>
+
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeSignup()">&times;</span>
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Full Name" />
+      <input type="email" id="signupEmail" placeholder="Email" />
+      <input type="password" id="signupPassword" placeholder="Password" />
+      <label><input type="radio" name="role" value="subscriber" onclick="showExtraFields(false)" /> Subscriber</label>
+      <div id="subscriberExtra" class="hidden">
+        <label>
+          <input type="checkbox" id="subscriberFilterToggle" /> Show only my categories
+        </label>
+      </div>
+      <label><input type="radio" name="role" value="member" onclick="showExtraFields(true)" /> Member</label>
+      <div id="memberExtra">
+        <h3>Member Verification</h3>
+        <p>Select your topics of interest:</p>
+        <div class="categories-grid" id="signupCategories">
+          <label class="cat"><input type="checkbox" value="music"><span>Music</span></label>
+          <label class="cat"><input type="checkbox" value="tech"><span>Tech</span></label>
+          <label class="cat"><input type="checkbox" value="art"><span>Art</span></label>
+          <label class="cat"><input type="checkbox" value="sports"><span>Sports</span></label>
+          <label class="cat"><input type="checkbox" value="political"><span>Political</span></label>
+          <label class="cat"><input type="checkbox" value="social"><span>Social</span></label>
+          <label class="cat"><input type="checkbox" value="educational"><span>Educational</span></label>
+          <label class="cat"><input type="checkbox" value="medical"><span>Medical</span></label>
+          <label class="cat"><input type="checkbox" value="expo"><span>Expos</span></label>
+          <label class="cat"><input type="checkbox" value="promotion"><span>Promotions</span></label>
+        </div>
+        <input type="text" placeholder="Verification Code (demo)" />
+      </div>
+      <button onclick="signup()">Sign Up</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderAuthUI();
+      loadProfileData();
+    });
+  </script>
+</body>
+</html>

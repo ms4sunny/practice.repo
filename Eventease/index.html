@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EventEase - Discover Events</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header>
+      <nav>
+        <div class="brand">
+          <a href="index.html" class="logo">
+            <img src="logo.png" alt="EventEase Logo" class="logo">
+          </a>
+          <h1>EventEase</h1>
+        </div>
+        <ul>
+          <li><a href="index.html" class="nav-btn">Home</a></li>
+          <li><a href="events.html" class="nav-btn">Events</a></li>
+          <li><a href="favorites.html" class="nav-btn">Favorites</a></li>
+          <li id="dashboardNav" class="hidden"><a href="dashboard.html" class="nav-btn">Dashboard</a></li>
+          <li id="loginNav"><a href="#" class="nav-btn" onclick="openLogin(); return false;">Login</a></li>
+          <li id="signupNav"><a href="#" class="nav-btn" onclick="openSignup(); return false;">Sign Up</a></li>
+          <li id="userMenu" class="hidden">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                 class="user-icon" alt="User icon"
+                 onclick="toggleUserMenu()">
+            <div id="userDropdown" class="dropdown hidden"></div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h2>Discover Amazing Events Around You 🎉</h2>
+      <p>Concerts, workshops, meetups, and more — all in one place.</p>
+      <a href="events.html" class="btn">Browse Events</a>
+    </section>
+    
+    <!-- Featured Events -->
+    <section class="featured">
+      <h2>Featured Events</h2>
+      <div class="event-grid">
+        <div class="event-card">
+          <img src="https://picsum.photos/400/200?random=1" alt="Music Fest">
+          <h3>🎶 Music Fest 2025</h3>
+          <p>Biggest music festival of the year.</p>
+          <a href="event-details.html?id=1" class="btn">View Details</a>
+        </div>
+        <div class="event-card">
+          <img src="https://picsum.photos/400/200?random=2" alt="Hackathon">
+          <h3>💻 Hackathon</h3>
+          <p>48-hour coding marathon.</p>
+          <a href="event-details.html?id=2" class="btn">View Details</a>
+        </div>
+        <div class="event-card">
+          <img src="https://picsum.photos/400/200?random=3" alt="Art Expo">
+          <h3>🎨 Art Expo</h3>
+          <p>Explore modern art from rising stars.</p>
+          <a href="event-details.html?id=3" class="btn">View Details</a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Login Modal - KEEPING YOUR ORIGINAL STRUCTURE -->
+    <div id="loginModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close" onclick="closeLogin()">&times;</span>
+        <h2>Login</h2>
+        <input type="text" id="loginUsername" placeholder="Email or Username" />
+        <input type="password" id="loginPassword" placeholder="Password" />
+        <button onclick="memberLogin()">Login</button>
+      </div>
+    </div>
+
+    <!-- Signup Modal - RESTORING YOUR ORIGINAL STRUCTURE -->
+    <div id="signupModal" class="modal">  <!-- REMOVED "hidden" class -->
+      <div class="modal-content">
+        <span class="close" onclick="closeSignup()">&times;</span>
+        <h2>Sign Up</h2>
+        <input type="text" id="signupName" placeholder="Full Name" />
+        <input type="email" id="signupEmail" placeholder="Email" />
+        <input type="password" id="signupPassword" placeholder="Password" />
+
+        <label><input type="radio" name="role" value="subscriber" onclick="showExtraFields(false)" /> Subscriber</label>
+        <div id="subscriberExtra" class="hidden">
+          <label>
+            <input type="checkbox" id="subscriberFilterToggle" /> Show only my categories
+          </label>
+        </div>
+        <label><input type="radio" name="role" value="member" onclick="showExtraFields(true)" /> Member</label>
+
+        <div id="memberExtra">  <!-- REMOVED "hidden" class -->
+          <h3>Member Verification</h3>
+          <p>Select your topics of interest:</p>
+          <div class="categories-grid" id="signupCategories">
+            <label class="cat"><input type="checkbox" value="music"><span>Music</span></label>
+            <label class="cat"><input type="checkbox" value="tech"><span>Tech</span></label>
+            <label class="cat"><input type="checkbox" value="art"><span>Art</span></label>
+            <label class="cat"><input type="checkbox" value="sports"><span>Sports</span></label>
+            <label class="cat"><input type="checkbox" value="political"><span>Political</span></label>
+            <label class="cat"><input type="checkbox" value="social"><span>Social</span></label>
+            <label class="cat"><input type="checkbox" value="educational"><span>Educational</span></label>
+            <label class="cat"><input type="checkbox" value="medical"><span>Medical</span></label>
+            <label class="cat"><input type="checkbox" value="expo"><span>Expos</span></label>
+            <label class="cat"><input type="checkbox" value="promotion"><span>Promotions</span></label>
+          </div>
+          <input type="text" placeholder="Verification Code (demo)" />
+        </div>
+        <button onclick="signup()">Sign Up</button>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 EventEase. All rights reserved.</p>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script> 
+      document.addEventListener("DOMContentLoaded", function () { 
+        renderAuthUI();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventEase Modals Test</title>
+  <link rel="stylesheet" href="style.css"> <!-- make sure style.css is in the same folder -->
+</head>
+<body>
+  <h1>Modal Test Page</h1>
+  <button onclick="openLogin()">Open Login Modal</button>
+  <button onclick="openSignup()">Open Signup Modal</button>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
+      <h2>Login</h2>
+      <input type="text" id="loginUsername" placeholder="Email or Username" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <button onclick="memberLogin()">Login</button>
+    </div>
+  </div>
+
+<!-- Signup Modal -->
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeSignup()">&times;</span>
+    <h2>Sign Up</h2>
+    <input type="text" id="signupName" placeholder="Full Name" />
+    <input type="email" id="signupEmail" placeholder="Email" />
+    <input type="password" id="signupPassword" placeholder="Password" />
+
+    <label><input type="radio" name="role" value="subscriber" onclick="showExtraFields(false)" /> Subscriber</label>
+      <div id="subscriberExtra" class="hidden">
+        <label>
+          <input type="checkbox" id="subscriberFilterToggle" /> Show only my categories
+        </label>
+      </div>
+    <label><input type="radio" name="role" value="member" onclick="showExtraFields(true)" /> Member</label>
+
+    <div id="memberExtra">
+      <h3>Member Verification</h3>
+      <p>Select your topics of interest:</p>
+<div class="categories-grid" id="signupCategories">
+  <label class="cat"><input type="checkbox" value="music"><span>Music</span></label>
+  <label class="cat"><input type="checkbox" value="tech"><span>Tech</span></label>
+  <label class="cat"><input type="checkbox" value="art"><span>Art</span></label>
+  <label class="cat"><input type="checkbox" value="sports"><span>Sports</span></label>
+  <label class="cat"><input type="checkbox" value="political"><span>Political</span></label>
+  <label class="cat"><input type="checkbox" value="social"><span>Social</span></label>
+  <label class="cat"><input type="checkbox" value="educational"><span>Educational</span></label>
+  <label class="cat"><input type="checkbox" value="medical"><span>Medical</span></label>
+  <label class="cat"><input type="checkbox" value="expo"><span>Expos</span></label>
+  <label class="cat"><input type="checkbox" value="promotion"><span>Promotions</span></label>
+</div>
+
+
+      <input type="text" placeholder="Verification Code (demo)" />
+    </div>
+    <button onclick="signup()">Sign Up</button>
+  </div>
+</div>
+
+  <script src="script.js"></script> <!-- make sure script.js is in the same folder -->
+</body>
+</html>

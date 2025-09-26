@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details - EventEase</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Consistent Navbar -->
+  <header>
+    <nav>
+      <div class="brand">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="EventEase Logo" class="logo">
+        </a>
+        <h1>EventEase</h1>
+      </div>
+      <ul>
+        <li><a href="index.html" class="nav-btn">Home</a></li>
+        <li><a href="events.html" class="nav-btn">Events</a></li>
+        <li><a href="favorites.html" class="nav-btn">Favorites</a></li>
+        <li id="dashboardNav" class="hidden"><a href="dashboard.html" class="nav-btn">Dashboard</a></li>
+        <li id="loginNav"><a href="#" class="nav-btn" onclick="openLogin(); return false;">Login</a></li>
+        <li id="signupNav"><a href="#" class="nav-btn" onclick="openSignup(); return false;">Sign Up</a></li>
+        <li id="userMenu" class="hidden">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+               class="user-icon" alt="User icon"
+               onclick="toggleUserMenu()">
+          <div id="userDropdown" class="dropdown hidden"></div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Event Details Content (Will be populated by JavaScript) -->
+  <section class="event-details-hero">
+    <div class="hero-content">
+      <div class="breadcrumb">
+        <a href="events.html" class="btn-secondary">← Back to Events</a>
+      </div>
+      <h1 id="eventDetailTitle">Event Details</h1>
+      <p id="eventDetailSubtitle">Loading event information...</p>
+    </div>
+  </section>
+
+  <main class="event-details-main">
+    <div id="eventDetailContainer" class="event-detail-container">
+      <!-- JavaScript will populate this -->
+    </div>
+  </main>
+
+  <section class="related-events">
+    <div class="container">
+      <h2>🎭 Related Events You Might Like</h2>
+      <div id="relatedEventsContainer" class="event-grid">
+        <!-- JavaScript will populate this -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
+      <h2>Login</h2>
+      <input type="text" id="loginUsername" placeholder="Email or Username" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <button onclick="memberLogin()">Login</button>
+    </div>
+  </div>
+
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeSignup()">&times;</span>
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Full Name" />
+      <input type="email" id="signupEmail" placeholder="Email" />
+      <input type="password" id="signupPassword" placeholder="Password" />
+      <label><input type="radio" name="role" value="subscriber" onclick="showExtraFields(false)" /> Subscriber</label>
+      <div id="subscriberExtra" class="hidden">
+        <label><input type="checkbox" id="subscriberFilterToggle" /> Show only my categories</label>
+      </div>
+      <label><input type="radio" name="role" value="member" onclick="showExtraFields(true)" /> Member</label>
+      <div id="memberExtra">
+        <h3>Member Verification</h3>
+        <p>Select your topics of interest:</p>
+        <div class="categories-grid" id="signupCategories">
+          <label class="cat"><input type="checkbox" value="music"><span>Music</span></label>
+          <label class="cat"><input type="checkbox" value="tech"><span>Tech</span></label>
+          <label class="cat"><input type="checkbox" value="art"><span>Art</span></label>
+          <label class="cat"><input type="checkbox" value="sports"><span>Sports</span></label>
+          <label class="cat"><input type="checkbox" value="political"><span>Political</span></label>
+          <label class="cat"><input type="checkbox" value="social"><span>Social</span></label>
+          <label class="cat"><input type="checkbox" value="educational"><span>Educational</span></label>
+          <label class="cat"><input type="checkbox" value="medical"><span>Medical</span></label>
+          <label class="cat"><input type="checkbox" value="expo"><span>Expos</span></label>
+          <label class="cat"><input type="checkbox" value="promotion"><span>Promotions</span></label>
+        </div>
+        <input type="text" placeholder="Verification Code (demo)" />
+      </div>
+      <button onclick="signup()">Sign Up</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderAuthUI();
+      displayEventDetails();
+      loadRelatedEvents();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - EventEase</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="EventEase Logo" class="logo">
+        </a>
+        <h1>EventEase</h1>
+      </div>
+      <ul>
+        <li><a href="index.html" class="nav-btn">Home</a></li>
+        <li><a href="events.html" class="nav-btn">Events</a></li>
+        <li><a href="favorites.html" class="nav-btn">Favorites</a></li>
+        <li id="dashboardNav" class="hidden"><a href="dashboard.html" class="nav-btn active">Dashboard</a></li>
+        <li id="loginNav"><a href="#" class="nav-btn" onclick="openLogin(); return false;">Login</a></li>
+        <li id="signupNav"><a href="#" class="nav-btn" onclick="openSignup(); return false;">Sign Up</a></li>
+        <li id="userMenu" class="hidden">
+          <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+               class="user-icon" alt="User icon"
+               onclick="toggleUserMenu()">
+          <div id="userDropdown" class="dropdown hidden"></div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 🔽 Sidebar (Hidden by default) -->
+  <aside id="sidebar" class="sidebar">
+    <ul>
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="events.html">📅 All Events</a></li>
+      <li><a href="favorites.html">⭐ Favorites</a></li>
+      <li><a href="profile.html">👤 Profile</a></li>
+      <li><a href="#" onclick="logout()">🚪 Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Toggle Button (Bottom Left) -->
+  <button id="sidebarToggle" class="sidebar-toggle-btn">☰ Menu</button>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+    <!-- Dashboard Header -->
+    <section class="dashboard-hero">
+      <div class="hero-content">
+        <h1 id="welcomeMessage">Welcome back! 👋</h1>
+        <p class="hero-subtitle">Manage your events and preferences</p>
+        <div class="stats-overview">
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-info">
+              <span class="stat-number" id="totalEvents">0</span>
+              <span class="stat-label">My Events</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-info">
+              <span class="stat-number" id="totalFavorites">0</span>
+              <span class="stat-label">Favorites</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+              <span class="stat-number" id="memberSince">2025</span>
+              <span class="stat-label">Member Since</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-content">
+      <!-- Enhanced Event Creation Form -->
+<section class="dashboard-section add-event-section">
+  <div class="section-header">
+    <h2>🎯 Create New Event</h2>
+    <p>Share your event with the community</p>
+  </div>
+  <div class="add-event-form">
+    <!-- Basic Information -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="eventTitle">Event Title *</label>
+        <input type="text" id="eventTitle" placeholder="Enter event title" required>
+      </div>
+      <div class="form-group">
+        <label for="eventCategory">Category *</label>
+        <select id="eventCategory" required>
+          <option value="">Select category</option>
+          <option value="music">🎵 Music</option>
+          <option value="tech">💻 Tech</option>
+          <option value="art">🎨 Art</option>
+          <option value="sports">⚽ Sports</option>
+          <option value="political">🗳️ Political</option>
+          <option value="social">🤝 Social</option>
+          <option value="educational">📚 Educational</option>
+          <option value="medical">🏥 Medical</option>
+          <option value="expo">🏢 Expo</option>
+          <option value="promotion">💡 Promotion</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Date & Time -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="eventDate">Event Date *</label>
+        <input type="date" id="eventDate" required>
+      </div>
+      <div class="form-group">
+        <label for="eventTime">Event Time *</label>
+        <input type="time" id="eventTime" required>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="eventLocationType">Event Type *</label>
+        <select id="eventLocationType" required onchange="toggleLocationFields()">
+          <option value="physical">🏢 Physical Venue</option>
+          <option value="online">💻 Online Event</option>
+          <option value="hybrid">🌐 Hybrid (Both)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="eventVenue">Venue/Platform Name *</label>
+        <input type="text" id="eventVenue" placeholder="e.g., Convention Center or Zoom" required>
+      </div>
+    </div>
+
+    <!-- Location Details -->
+    <div id="physicalLocationFields">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="eventAddress">Address</label>
+          <input type="text" id="eventAddress" placeholder="Street address">
+        </div>
+        <div class="form-group">
+          <label for="eventCity">City</label>
+          <input type="text" id="eventCity" placeholder="City">
+        </div>
+      </div>
+    </div>
+
+    <div id="onlineLocationFields">
+      <div class="form-group">
+        <label for="eventLink">Event Link</label>
+        <input type="url" id="eventLink" placeholder="https://meet.google.com/abc-xyz">
+      </div>
+    </div>
+
+    <!-- Ticket Options -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="eventPriceType">Ticket Type *</label>
+        <select id="eventPriceType" required onchange="togglePriceField()">
+          <option value="free">🎫 Free Event</option>
+          <option value="paid">💰 Paid Event</option>
+        </select>
+      </div>
+      <div class="form-group" id="priceAmountGroup">
+        <label for="eventPriceAmount">Ticket Price ($)</label>
+        <input type="number" id="eventPriceAmount" min="0" step="0.01" placeholder="0.00">
+      </div>
+    </div>
+
+    <!-- Capacity -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="eventCapacity">Maximum Attendees</label>
+        <input type="number" id="eventCapacity" min="1" placeholder="100">
+        <small>Leave empty for unlimited</small>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label for="eventDesc">Event Description *</label>
+      <textarea id="eventDesc" placeholder="Describe your event in detail..." rows="4" required></textarea>
+    </div>
+
+    <!-- Image -->
+    <div class="form-group">
+      <label for="eventImage">Event Image URL (optional)</label>
+      <input type="url" id="eventImage" placeholder="https://example.com/image.jpg">
+      <small>Leave empty for a default event image</small>
+    </div>
+
+    <button class="btn-primary large" onclick="addEvent()">
+      <span class="btn-icon">➕</span>
+      Submit Event for Approval
+    </button>
+  </div>
+</section>
+      <!-- My Events Section -->
+      <section class="dashboard-section my-events-section">
+        <div class="section-header">
+          <h2>📋 My Events</h2>
+          <p>Manage your created events</p>
+        </div>
+        <div id="myEventList" class="events-grid">
+          <!-- Events will be loaded here -->
+        </div>
+        <div id="emptyEvents" class="empty-state">
+          <div class="empty-icon">📅</div>
+          <h3>No events created yet</h3>
+          <p>Start by creating your first event above!</p>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="dashboard-section quick-actions">
+        <div class="section-header">
+          <h2>⚡ Quick Actions</h2>
+          <p>Get things done faster</p>
+        </div>
+        <div class="actions-grid">
+          <a href="events.html" class="action-card">
+            <div class="action-icon">🔍</div>
+            <h3>Browse Events</h3>
+            <p>Discover upcoming events</p>
+          </a>
+          <a href="favorites.html" class="action-card">
+            <div class="action-icon">⭐</div>
+            <h3>My Favorites</h3>
+            <p>View saved events</p>
+          </a>
+          <a href="profile.html" class="action-card">
+            <div class="action-icon">👤</div>
+            <h3>Edit Profile</h3>
+            <p>Update your information</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modals -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
+      <h2>Login</h2>
+      <input type="text" id="loginUsername" placeholder="Email or Username" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <button onclick="memberLogin()">Login</button>
+    </div>
+  </div>
+
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeSignup()">&times;</span>
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Full Name" />
+      <input type="email" id="signupEmail" placeholder="Email" />
+      <input type="password" id="signupPassword" placeholder="Password" />
+      <label><input type="radio" name="role" value="subscriber" onclick="showExtraFields(false)" /> Subscriber</label>
+      <div id="subscriberExtra" class="hidden">
+        <label>
+          <input type="checkbox" id="subscriberFilterToggle" /> Show only my categories
+        </label>
+      </div>
+      <label><input type="radio" name="role" value="member" onclick="showExtraFields(true)" /> Member</label>
+      <div id="memberExtra">
+        <h3>Member Verification</h3>
+        <p>Select your topics of interest:</p>
+        <div class="categories-grid" id="signupCategories">
+          <label class="cat"><input type="checkbox" value="music"><span>Music</span></label>
+          <label class="cat"><input type="checkbox" value="tech"><span>Tech</span></label>
+          <label class="cat"><input type="checkbox" value="art"><span>Art</span></label>
+          <label class="cat"><input type="checkbox" value="sports"><span>Sports</span></label>
+          <label class="cat"><input type="checkbox" value="political"><span>Political</span></label>
+          <label class="cat"><input type="checkbox" value="social"><span>Social</span></label>
+          <label class="cat"><input type="checkbox" value="educational"><span>Educational</span></label>
+          <label class="cat"><input type="checkbox" value="medical"><span>Medical</span></label>
+          <label class="cat"><input type="checkbox" value="expo"><span>Expos</span></label>
+          <label class="cat"><input type="checkbox" value="promotion"><span>Promotions</span></label>
+        </div>
+        <input type="text" placeholder="Verification Code (demo)" />
+      </div>
+      <button onclick="signup()">Sign Up</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderAuthUI();
+      setupDashboard();
+      initializeSidebar(); // Initialize the sidebar toggle
+    });
+  </script>
+</body>
+</html>

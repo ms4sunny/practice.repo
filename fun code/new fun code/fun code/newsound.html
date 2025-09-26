@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhammad Sajid - Profile</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* INITIAL BLACK SCREEN */
+    body.initial-dark {
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* MAIN CONTENT HIDDEN */
+    .main-content.hidden {
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      pointer-events: none;
+    }
+    .main-content {
+      opacity: 1;
+      transition: opacity 2s ease-in-out;
+      text-align: center;
+      margin-top: 100px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* BUTTON BASE */
+    #theme-switch-button {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      cursor: pointer;
+      transition: background-color 1.5s ease, box-shadow 1.5s ease;
+      z-index: 9999;
+      animation: pulse 2s infinite;
+      border: none;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+      50% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+      100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+    }
+
+    /* RED GLOW BUTTON */
+    .glow-button.red {
+      background-color: #8b0000;
+      animation: pulse-red 3s infinite;
+    }
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+      50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.9); }
+      100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+    }
+
+    /* GREEN GLOW BUTTON */
+    .glow-button.green {
+      background-color: #006400;
+      animation: pulse-green 3s infinite;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.4); }
+      50% { box-shadow: 0 0 40px rgba(0, 255, 0, 0.8); }
+      100% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.4); }
+    }
+
+    /* LIGHT THEME + GLOW AMBIENCE */
+    body.light-theme {
+      background-color: #f0f0f0;
+      color: #000;
+      animation: lightGlow 4s ease-in-out infinite;
+      transition: background-color 1s ease, color 1s ease;
+    }
+    @keyframes lightGlow {
+      0% { background-color: rgba(240,240,240,1); }
+      50% { background-color: rgba(255,255,255,0.95); }
+      100% { background-color: rgba(240,240,240,1); }
+    }
+    body.light-theme h1,
+    body.light-theme h2,
+    body.light-theme h3 { color: #6788ee; }
+    body.light-theme p { color: #000; }
+
+    /* DARK THEME */
+    body.dark-theme {
+      background-color: #121212;
+      color: #e0e0e0;
+      transition: background-color 1s ease, color 1s ease;
+    }
+    body.dark-theme h1,
+    body.dark-theme h2,
+    body.dark-theme h3 { color: #6788ee; }
+    body.dark-theme p { color: #ccc; }
+    body.dark-theme a.fav-link {
+      color: #4dabf7;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    body.dark-theme a.fav-link:hover {
+      color: #9dd2f7;
+      text-decoration: underline;
+    }
+
+    /* PROFILE PICTURE */
+    .profile-pic {
+      width: 400px;
+      border-radius: 10px;
+      border: 3px solid #b02626;
+      box-shadow: 3px 3px 15px rgba(0,0,0,0.2);
+      margin-top: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 4px 4px 15px rgba(0,0,0,0.3);
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      body.light-theme { background-color: #9bf0c3; color: #222; }
+      body.dark-theme { background-color: #000; color: #ddd; }
+      .profile-pic { width: 90%; }
+      .container { padding: 10px; }
+    }
+  </style>
+</head>
+<body class="initial-dark">
+  
+  <button id="theme-switch-button" class="glow-button red">work</button>
+  <span class="glow-text">Switch Theme</span>
+
+  <div class="main-content hidden"> 
+    <h1>Muhammad Sajid</h1><br>
+    <h2>Driven by passion, powered by purpose.</h2><br>
+    <p>Hello! I am a passionate learner who loves creating web pages and exploring new technologies.</p><br>
+    <h3>My Hobbies</h3>
+    <ul>
+      <li>Coding</li>
+      <li>Fun with AI</li>
+      <li>Watching Movies</li>
+    </ul><br><br>
+    <h3>OK That's me</h3>
+    <img src="profile-picture.jpg" alt="Profile picture" class="profile-pic" /><br><br>
+    <p>Visit my favorite website: <a href="https://www.youtube.com" target="_blank" class="fav-link">YouTube</a></p>
+  </div>
+
+  <!-- Sounds -->
+  <audio id="tubeLightStart" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_53e8f6d7d2.mp3?filename=fluorescent-lamp-buzz-143689.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="tubeLightHum" preload="auto" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_80dbcfec06.mp3?filename=light-buzz-12549.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const body = document.body;
+      const button = document.getElementById('theme-switch-button');
+      const content = document.querySelector('.main-content');
+      const startSound = document.getElementById('tubeLightStart');
+      const humSound = document.getElementById('tubeLightHum');
+
+      let stage = 0;
+
+      function randomFlicker(duration = 2500) {
+        let start = Date.now();
+        let flickerInterval = setInterval(() => {
+          let elapsed = Date.now() - start;
+          if (elapsed >= duration) {
+            clearInterval(flickerInterval);
+            body.classList.add('light-theme');
+            content.classList.remove('hidden');
+            button.classList.add('green');
+            stage = 1;
+            humSound.volume = 0.2;
+            humSound.play();
+            return;
+          }
+          let opacity = Math.random() * 0.5;
+          body.style.backgroundColor = `rgba(255,255,255,${opacity})`;
+        }, Math.random() * 100 + 50);
+      }
+
+      button.addEventListener('click', () => {
+        button.classList.remove('red', 'green');
+
+        if (stage === 0) {
+          startSound.currentTime = 0;
+          startSound.play();
+          randomFlicker();
+          setTimeout(() => { body.style.backgroundColor = ''; }, 2600);
+
+        } else if (stage === 1) {
+          body.classList.remove('light-theme');
+          body.classList.add('dark-theme');
+          humSound.pause();
+          button.classList.add('red');
+          stage = 2;
+
+        } else {
+          body.classList.remove('dark-theme');
+          body.classList.add('light-theme');
+          humSound.volume = 0.2;
+          humSound.play();
+          button.classList.add('green');
+          stage = 1;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

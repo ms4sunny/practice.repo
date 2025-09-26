@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 200px;
+}
+
+.calculator {
+  display: block;
+  padding: 100px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: #f9f9f9;
+  max-width: 1000px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+
+.calculator input, 
+.calculator select, 
+.calculator textarea {
+  margin: 8px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+label[for="operation"] {
+  display: block;
+  font-size: 24px;
+  color: #333;
+}
+
+.calc-label {
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+  color: #ff6f61;
+}
+
+
+button {
+  display: block;
+  margin: 20px auto;
+  width: fit-content;
+  background-color: #e8dcdb;
+  color: black;
+  border: solid 1px #888484;
+  box-shadow: 0 0 0 2px rgba(136, 132, 132, 0.15);
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: wait;
+}
+
+
+input.error {
+  border: 2px solid #e53935;
+  box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.15);
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}

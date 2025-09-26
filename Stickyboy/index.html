@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stick Figure vs Cursor</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+    canvas {
+      display: block;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="1000" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let stick = { x: 100, y: 400, step: 0, speed: 0, maxSpeed: 3 };
+    let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+
+    // Track mouse
+    canvas.addEventListener("mousemove", e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+
+    function drawStickFigure(x, y, step) {
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 3;
+
+      // Smooth swing values
+      let swing = Math.sin(step / 8) * 15;   // swing for legs
+      let armSwing = Math.sin(step / 8 + Math.PI) * 20; // arms opposite
+      let bodyBob = Math.abs(Math.sin(step / 16)) * 3;  // body bob up/down
+
+      // Head
+      ctx.beginPath();
+      ctx.arc(x, y - 60 - bodyBob, 20, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Body
+      ctx.beginPath();
+      ctx.moveTo(x, y - 40 - bodyBob);
+      ctx.lineTo(x, y - 5 - bodyBob);
+      ctx.stroke();
+
+      // Arms
+      ctx.beginPath();
+      ctx.moveTo(x, y - 40 - bodyBob);
+      ctx.lineTo(x - 25, y - 20 - bodyBob + armSwing / 3);
+      ctx.moveTo(x, y - 40 - bodyBob);
+      ctx.lineTo(x + 25, y - 20 - bodyBob - armSwing / 3);
+      ctx.stroke();
+
+      // Legs
+      ctx.beginPath();
+      ctx.moveTo(x, y - 5 - bodyBob);
+      ctx.lineTo(x - 15, y + 30 + swing); // left leg
+      ctx.moveTo(x, y - 5 - bodyBob);
+      ctx.lineTo(x + 15, y + 30 - swing); // right leg
+      ctx.stroke();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Distance to mouse
+      let dx = mouse.x - stick.x;
+      let dy = mouse.y - stick.y;
+      let dist = Math.sqrt(dx * dx + dy * dy);
+
+      // Speed depends on distance
+      stick.speed = Math.min(stick.maxSpeed, dist / 50);
+
+      if (dist > 40) {
+        stick.x += (dx / dist) * stick.speed;
+        stick.y += (dy / dist) * stick.speed;
+        stick.step += stick.speed * 2; // faster step cycle if faster movement
+      }
+
+      drawStickFigure(stick.x, stick.y, stick.step);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>

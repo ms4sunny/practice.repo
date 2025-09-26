@@ -5,29 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Muhammad Sajid - Profile</title>
   <style>
-    /* Base Styles */
     body {
       margin: 0;
       padding: 0;
-      background-color: #000; /* Dark Room */
+      background-color: #000;
       font-family: sans-serif;
       overflow: hidden;
       transition: background-color 1s ease;
     }
 
-    /* Visually hidden utility for accessibility */
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-    }
-
-    /* Switch Button (The Martian Style) */
     #theme-switch-button {
       width: 30px;
       height: 30px;
@@ -56,7 +42,6 @@
       left: 70px;
     }
 
-    /* The "Wall" Background */
     .wall {
       position: absolute;
       top: 0;
@@ -65,16 +50,15 @@
       height: 100vh;
       background: #ffffff;
       opacity: 0;
-      transition: opacity 3s ease-in-out;
+      transition: opacity 0.1s ease;
       z-index: 1;
     }
 
     .wall.glow {
-      opacity: 0.40; /* Not fully bright, just enough to read text */
+      opacity: 0.40;
       box-shadow: inset 0 0 150px #f5f4f4;
     }
 
-    /* Main Content on Wall */
     .main-content {
       position: relative;
       z-index: 2;
@@ -104,30 +88,15 @@
       border: 3px solid #444;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
-
-  /* Flicker effect on wall */
-  @keyframes flicker {
-    0%, 3%, 5%, 9%, 11%, 15%, 20% { opacity: 0; }
-    25%, 100% { opacity: 0.35; }
-  }
-
-    .wall.flicker-effect {
-      animation: flicker 2s linear forwards;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Red Switch Button -->
-  <button id="theme-switch-button" title="Switch Light">
-    <span class="visually-hidden">Switch Light</span>
-  </button>
+  <button id="theme-switch-button"></button>
   <span class="glow-text">Switch Light</span>
 
-  <!-- Wall Background -->
   <div id="wall" class="wall"></div>
 
-  <!-- Content on the Wall -->
   <div id="mainContent" class="main-content">
     <h1>Muhammad Sajid</h1><br>
     <h2>Driven by passion, powered by purpose.</h2><br>
@@ -142,7 +111,7 @@
     </ul><br><br>
     <h3>OK That's me</h3>
     <img src="profile-picture.jpg" alt="Profile picture" class="profile-pic" /><br><br>
-    <p>Visit my favorite website: <a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a></p>
+    <p>Visit my favorite website: <a href="https://www.youtube.com" target="_blank">YouTube</a></p>
   </div>
 
   <script>
@@ -150,19 +119,28 @@
     const wall = document.getElementById('wall');
     const content = document.getElementById('mainContent');
 
+    function randomFlicker(duration = 2500) {
+      let start = Date.now();
+      let flickerInterval = setInterval(() => {
+        let elapsed = Date.now() - start;
+        if (elapsed >= duration) {
+          clearInterval(flickerInterval);
+          wall.style.opacity = "0.40";
+          wall.classList.add('glow');
+          content.classList.add('visible');
+          return;
+        }
+        // Random opacity between 0 and 0.5
+        wall.style.opacity = (Math.random() * 0.5).toFixed(2);
+      }, Math.random() * 100 + 50); // random interval between 50ms and 150ms
+    }
+
     button.addEventListener('click', () => {
-      // Turn on the button
       button.classList.add('on');
-
-      // Flicker the wall
-      wall.classList.add('flicker-effect');
-
-      // After flicker, apply glowing wall
-      setTimeout(() => {
-        wall.classList.remove('flicker-effect');
-        wall.classList.add('glow');
-        content.classList.add('visible');
-      }, 2200); // Match flicker duration
+      wall.classList.remove('glow'); // reset if clicked again
+      content.classList.remove('visible');
+      wall.style.opacity = "0";
+      randomFlicker();
     });
   </script>
 </body>
